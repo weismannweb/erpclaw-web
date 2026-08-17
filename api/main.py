@@ -33,7 +33,7 @@ app = FastAPI(
 )
 
 # CORS — configurable origins via environment variable
-_default_origins = "http://localhost:5173,http://localhost:5180,http://localhost:4173"
+_default_origins = "http://api:5173,http://api:5180,http://api:4173"
 _origins = os.environ.get("ALLOWED_ORIGINS", _default_origins).split(",")
 app.add_middleware(
     CORSMiddleware,
