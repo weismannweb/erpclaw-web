@@ -1,0 +1,26 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    environment:
+      - ERPCLAW_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - ERPCLAW_DB_PATH=/data/erpclaw/data.sqlite
+    volumes:
+      - erpclaw_data:/data/erpclaw
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    depends_on:
+      - api
+    ports:
+      - "80"
+    restart: unless-stopped
+
+volumes:
+  erpclaw_data:
